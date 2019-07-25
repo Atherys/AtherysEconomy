@@ -44,7 +44,6 @@ repositories {
 dependencies {
     shadow 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
     shadow 'com.github.Atherys-Horizons:AtherysCore:1.14.2'
-    shadow 'com.github.pie-flavor:Pieconomy:-SNAPSHOT'
 }
 
 javadoc {
