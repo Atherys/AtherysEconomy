@@ -8,12 +8,15 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.DataRegistration;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.service.economy.Currency;
 
 import static com.atherys.economy.AtherysEconomy.*;
@@ -41,11 +44,33 @@ public class AtherysEconomy {
     @Inject
     Logger logger;
 
+    @Inject
+    PluginContainer container;
+
     private Components components;
     private Injector econInjector;
 
+    private boolean init = true;
+
+    @Listener
+    public void onPreInit(GamePreInitializationEvent event) {
+        DataRegistration<CurrencyData, CurrencyData.Immutable> registration = DataRegistration.builder()
+                .dataClass(CurrencyData.class)
+                .immutableClass(CurrencyData.Immutable.class)
+                .builder(new CurrencyData.Builder())
+                .dataName("CurrencyData")
+                .manipulatorId("atheryseconomy:currency")
+                .buildAndRegister(container);
+    }
+
     @Listener
     public void onInit(GameInitializationEvent event) {
+        if (!Economy.isPresent())  {
+            logger.error("An economy service is not installed. AtherysEconomy cannot function without one.");
+            init = false;
+            return;
+        }
+
         instance = this;
         components = new Components();
 
@@ -57,13 +82,8 @@ public class AtherysEconomy {
 
     @Listener
     public void onStart(GameStartedServerEvent event) {
-        if (!Economy.isPresent())  {
-            logger.error("An economy service is not installed. AtherysEconomy cannot function without one.");
-            return;
-        }
-
         for (CarriedCurrency currency : components.config.CURRENCIES) {
-            if (!Sponge.getRegistry().getType(Currency.class, currency.CURRENCY).isPresent()) {
+            if (!Sponge.getRegistry().getType(Currency.class, currency.CURRENCY.getId()).isPresent()) {
                 logger.warn("Currency {} is not a loaded currency.", currency.CURRENCY);
             }
         }
