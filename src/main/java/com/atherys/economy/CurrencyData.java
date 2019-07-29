@@ -30,6 +30,7 @@ public class CurrencyData extends AbstractData<CurrencyData, CurrencyData.Immuta
 
     CurrencyData() {
         currency = Sponge.getServiceManager().provideUnchecked(EconomyService.class).getDefaultCurrency();
+        amount = 0.0;
     }
 
     public CurrencyData(Double amount, Currency currency) {

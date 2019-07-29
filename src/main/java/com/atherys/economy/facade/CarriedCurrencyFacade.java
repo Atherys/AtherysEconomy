@@ -8,16 +8,16 @@ import com.atherys.economy.EconomyConfig;
 import com.atherys.economy.config.CarriedCurrency;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
-import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
+import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
+import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.account.UniqueAccount;
 import org.spongepowered.api.text.Text;
@@ -68,13 +68,21 @@ public class CarriedCurrencyFacade {
         location.getExtent().spawnEntity(itemEntity);
     }
 
-    public void onPickupCurrency(Player player, ItemStackSnapshot currencyItem) {
-        Currency currency = currencyItem.get(CurrencyKeys.CURRENCY).get();
-        double amount = currencyItem.get(CurrencyKeys.AMOUNT).get();
+    public void onPickupCurrency(Player player, ChangeInventoryEvent.Pickup event) {
+        for (SlotTransaction transaction : event.getTransactions()) {
+            ItemStackSnapshot item = transaction.getFinal();
 
-        player.sendMessage(Text.of(TextColors.DARK_GREEN, "You picked up ", TextColors.GOLD, amount, " ", currency.getPluralDisplayName(), "."));
+            if (item.get(CurrencyKeys.AMOUNT).isPresent() && item.get(CurrencyKeys.CURRENCY).isPresent()) {
 
-        Economy.addCurrency(player.getUniqueId(), currency, BigDecimal.valueOf(amount), getTransactionCause(player));
+                Currency currency = item.get(CurrencyKeys.CURRENCY).get();
+                double amount = item.get(CurrencyKeys.AMOUNT).get();
+
+                Economy.addCurrency(player.getUniqueId(), currency, BigDecimal.valueOf(amount), getTransactionCause(player));
+                player.sendMessage(Text.of(TextColors.DARK_GREEN, "You picked up ", TextColors.GOLD, amount, " ", currency.getPluralDisplayName(), "."));
+
+                transaction.setValid(false);
+            }
+        }
     }
 
     public Optional<CarriedCurrency> getCarriedCurrency(Currency currency) {

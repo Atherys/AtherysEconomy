@@ -9,6 +9,7 @@ import com.google.inject.Injector;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataRegistration;
+import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
@@ -61,6 +62,9 @@ public class AtherysEconomy {
                 .dataName("CurrencyData")
                 .manipulatorId("atheryseconomy:currency")
                 .buildAndRegister(container);
+
+        Key key = CurrencyKeys.CURRENCY;
+        key = CurrencyKeys.AMOUNT;
     }
 
     @Listener

@@ -11,6 +11,8 @@ import org.spongepowered.api.event.entity.DestructEntityEvent;
 import org.spongepowered.api.event.filter.Getter;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
+import org.spongepowered.api.item.inventory.ItemStackSnapshot;
+import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
 
 @Singleton
 public class PlayerListener {
@@ -24,10 +26,7 @@ public class PlayerListener {
     }
 
     @Listener
-    public void onItemPickup(ChangeInventoryEvent.Pickup.Pre event, @Root Player player) {
-        if (event.getOriginalStack().get(CurrencyKeys.AMOUNT).isPresent()) {
-            currencyFacade.onPickupCurrency(player, event.getOriginalStack());
-            event.setCancelled(true);
-        }
+    public void onItemPickup(ChangeInventoryEvent.Pickup event, @Root Player player) {
+        currencyFacade.onPickupCurrency(player, event);
     }
 }
