@@ -1,8 +1,14 @@
 package com.atherys.economy;
 
+import com.atherys.core.command.CommandService;
+import com.atherys.core.command.CommandService.AnnotatedCommandException;
 import com.atherys.core.economy.Economy;
+import com.atherys.economy.command.PayCommand;
 import com.atherys.economy.config.CarriedCurrency;
+import com.atherys.economy.data.CurrencyData;
+import com.atherys.economy.data.CurrencyKeys;
 import com.atherys.economy.facade.CarriedCurrencyFacade;
+import com.atherys.economy.facade.TransferFacade;
 import com.atherys.economy.listener.PlayerListener;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -93,6 +99,12 @@ public class AtherysEconomy {
         }
 
         Sponge.getEventManager().registerListeners(this, components.playerListener);
+
+        try {
+            CommandService.getInstance().register(new PayCommand(), this);
+        } catch (AnnotatedCommandException e) {
+            e.printStackTrace();
+        }
     }
 
     @Listener
@@ -102,6 +114,10 @@ public class AtherysEconomy {
 
     public static AtherysEconomy getInstance() {
         return instance;
+    }
+
+    public TransferFacade getTransferFacade() {
+        return components.transferFacade;
     }
 
     public Logger getLogger() {
@@ -114,6 +130,9 @@ public class AtherysEconomy {
 
         @Inject
         CarriedCurrencyFacade carriedCurrencyFacade;
+
+        @Inject
+        TransferFacade transferFacade;
 
         @Inject
         PlayerListener playerListener;

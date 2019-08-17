@@ -1,6 +1,7 @@
 package com.atherys.economy;
 
 import com.atherys.economy.facade.CarriedCurrencyFacade;
+import com.atherys.economy.facade.TransferFacade;
 import com.atherys.economy.listener.PlayerListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
@@ -11,6 +12,7 @@ public class AtherysEconomyModule extends AbstractModule {
         bind(EconomyConfig.class).in(Scopes.SINGLETON);
 
         bind(CarriedCurrencyFacade.class).in(Scopes.SINGLETON);
+        bind(TransferFacade.class).in(Scopes.SINGLETON);
 
         bind(PlayerListener.class).in(Scopes.SINGLETON);
     }

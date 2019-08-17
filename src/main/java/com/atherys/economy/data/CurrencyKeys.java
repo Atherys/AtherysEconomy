@@ -1,4 +1,4 @@
-package com.atherys.economy;
+package com.atherys.economy.data;
 
 import com.google.common.reflect.TypeToken;
 import org.spongepowered.api.data.DataQuery;

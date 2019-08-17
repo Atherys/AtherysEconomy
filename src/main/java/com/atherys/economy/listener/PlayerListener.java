@@ -1,7 +1,6 @@
 package com.atherys.economy.listener;
 
 import com.atherys.economy.AtherysEconomy;
-import com.atherys.economy.CurrencyKeys;
 import com.atherys.economy.facade.CarriedCurrencyFacade;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -11,8 +10,6 @@ import org.spongepowered.api.event.entity.DestructEntityEvent;
 import org.spongepowered.api.event.filter.Getter;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
-import org.spongepowered.api.item.inventory.ItemStackSnapshot;
-import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
 
 @Singleton
 public class PlayerListener {

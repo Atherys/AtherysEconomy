@@ -19,6 +19,9 @@ public class EconomyConfig extends PluginConfig {
         CURRENCIES.add(new CarriedCurrency());
     }
 
+    @Setting("pay-distance")
+    public int PAY_DISTANCE = 50;
+
     protected EconomyConfig() throws IOException {
         super("config/" + AtherysEconomy.ID, "config.conf");
     }

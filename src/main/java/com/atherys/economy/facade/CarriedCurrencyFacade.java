@@ -2,8 +2,8 @@ package com.atherys.economy.facade;
 
 import com.atherys.core.economy.Economy;
 import com.atherys.economy.AtherysEconomy;
-import com.atherys.economy.CurrencyData;
-import com.atherys.economy.CurrencyKeys;
+import com.atherys.economy.data.CurrencyData;
+import com.atherys.economy.data.CurrencyKeys;
 import com.atherys.economy.EconomyConfig;
 import com.atherys.economy.config.CarriedCurrency;
 import com.google.inject.Inject;

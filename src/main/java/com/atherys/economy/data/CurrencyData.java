@@ -1,4 +1,4 @@
-package com.atherys.economy;
+package com.atherys.economy.data;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
