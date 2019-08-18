@@ -2,6 +2,7 @@ package com.atherys.economy.facade;
 
 import com.atherys.core.AtherysCore;
 import com.atherys.core.economy.Economy;
+import com.atherys.economy.AtherysEconomy;
 import com.atherys.economy.EconomyConfig;
 import com.flowpowered.math.vector.Vector3i;
 import com.google.inject.Inject;
@@ -24,7 +25,7 @@ public class TransferFacade {
     public void payPlayer(Player sender, double amount, Player receiver) throws CommandException {
         boolean sameWorld = sender.getWorld().getUniqueId().equals(receiver.getWorld().getUniqueId());
         Vector3i senderPosition = sender.getLocation().getBlockPosition();
-        Vector3i receiverPosition = sender.getLocation().getBlockPosition();
+        Vector3i receiverPosition = receiver.getLocation().getBlockPosition();
         boolean closeEnough = senderPosition.distance(receiverPosition) < config.PAY_DISTANCE;
 
         if (sameWorld && closeEnough) {
