@@ -2,10 +2,10 @@ package com.atherys.economy.facade;
 
 import com.atherys.core.economy.Economy;
 import com.atherys.economy.AtherysEconomy;
-import com.atherys.economy.data.CurrencyData;
-import com.atherys.economy.data.CurrencyKeys;
 import com.atherys.economy.EconomyConfig;
 import com.atherys.economy.config.CarriedCurrency;
+import com.atherys.economy.data.CurrencyData;
+import com.atherys.economy.data.CurrencyKeys;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.spongepowered.api.data.key.Keys;
@@ -45,7 +45,7 @@ public class CarriedCurrencyFacade {
                 BigDecimal voided = currency.getValue().multiply(BigDecimal.valueOf(carriedCurrency.VOID_RATE));
                 BigDecimal dropped = currency.getValue().multiply(BigDecimal.valueOf(carriedCurrency.DROP_RATE));
 
-                Cause cause = getTransactionCause(player);
+                Cause cause = Cause.of(EventContext.empty(), player);
 
                 account.withdraw(currency.getKey(), voided, cause);
                 account.withdraw(currency.getKey(), dropped, cause);
@@ -77,7 +77,7 @@ public class CarriedCurrencyFacade {
                 Currency currency = item.get(CurrencyKeys.CURRENCY).get();
                 double amount = item.get(CurrencyKeys.AMOUNT).get();
 
-                Economy.addCurrency(player.getUniqueId(), currency, BigDecimal.valueOf(amount), getTransactionCause(player));
+                Economy.addCurrency(player.getUniqueId(), currency, BigDecimal.valueOf(amount), Cause.of(EventContext.empty(), player));
                 player.sendMessage(Text.of(TextColors.DARK_GREEN, "You picked up ", TextColors.GOLD, amount, " ", currency.getPluralDisplayName(), "."));
 
                 transaction.setValid(false);
@@ -89,9 +89,5 @@ public class CarriedCurrencyFacade {
         return config.CURRENCIES.stream()
                 .filter(carriedCurrency -> carriedCurrency.CURRENCY.equals(currency))
                 .findFirst();
-    }
-
-    private Cause getTransactionCause(Player player) {
-        return Cause.of(EventContext.builder().build(), player);
     }
 }

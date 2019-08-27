@@ -2,10 +2,10 @@ package com.atherys.economy.facade;
 
 import com.atherys.core.AtherysCore;
 import com.atherys.core.economy.Economy;
-import com.atherys.economy.AtherysEconomy;
 import com.atherys.economy.EconomyConfig;
 import com.flowpowered.math.vector.Vector3i;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import static org.spongepowered.api.text.format.TextColors.DARK_GREEN;
 import static org.spongepowered.api.text.format.TextColors.GOLD;
 
+@Singleton
 public class TransferFacade {
     @Inject
     EconomyConfig config;

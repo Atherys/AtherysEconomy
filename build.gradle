@@ -43,13 +43,13 @@ repositories {
 
 dependencies {
     shadow 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
-    shadow 'com.github.Atherys-Horizons:AtherysCore:1.14.2'
+    shadow 'com.github.Atherys-Horizons:AtherysCore:1.15.0'
 }
 
 javadoc {
     source = sourceSets.main.allJava
     classpath += configurations.shadow
-    title = "AtherysQuests"
+    title = "AtherysEconomy"
     options.links(
             'http://www.slf4j.org/apidocs/',
             'https://docs.oracle.com/javase/8/docs/api/',
