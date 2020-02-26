@@ -65,7 +65,7 @@ public class BankService {
         BigDecimal exchange = BigDecimal.valueOf(amount);
         UUID playerId = player.getUniqueId();
 
-        if (Economy.getUniqueAccount(playerId).get().getBalance(from).compareTo(exchange) >= 0) {
+        if (Economy.getAccount(playerId).get().getBalance(from).compareTo(exchange) >= 0) {
             Cause cause = Cause.of(EventContext.empty(), player);
             Sponge.getCauseStackManager().getCurrentCause();
 
@@ -113,13 +113,13 @@ public class BankService {
 
     public Text getPlayerFrom(Player player) {
         Currency from = getSession(player).getFrom();
-        BigDecimal fromAmount = Economy.getUniqueAccount(player.getUniqueId()).get().getBalance(from);
+        BigDecimal fromAmount = Economy.getAccount(player.getUniqueId()).get().getBalance(from);
         return from.format(fromAmount, 2);
     }
 
     public Text getPlayerTo(Player player) {
         Currency to = getSession(player).getTo();
-        BigDecimal toAmount = Economy.getUniqueAccount(player.getUniqueId()).get().getBalance(to);
+        BigDecimal toAmount = Economy.getAccount(player.getUniqueId()).get().getBalance(to);
         return to.format(toAmount, 2);
     }
 

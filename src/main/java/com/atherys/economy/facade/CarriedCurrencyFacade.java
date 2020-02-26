@@ -36,7 +36,7 @@ public class CarriedCurrencyFacade {
     EconomyConfig config;
 
     public void onPlayerDeath(Player player) {
-        UniqueAccount account = Economy.getUniqueAccount(player.getUniqueId()).get();
+        UniqueAccount account = Economy.getAccount(player.getUniqueId()).get();
 
         for (Map.Entry<Currency, BigDecimal> currency : account.getBalances().entrySet())  {
             getCarriedCurrency(currency.getKey()).ifPresent(carriedCurrency -> {
@@ -66,6 +66,15 @@ public class CarriedCurrencyFacade {
         itemEntity.offer(Keys.REPRESENTED_ITEM, item.createSnapshot());
 
         location.getExtent().spawnEntity(itemEntity);
+    }
+
+    public Optional<ItemStack> createItemForCurrency(Currency currency, double amount) {
+        return getCarriedCurrency(currency).map(carriedCurrency -> {
+            ItemStack item = ItemStack.of(carriedCurrency.ITEM);
+            item.offer(new CurrencyData(amount, carriedCurrency.CURRENCY));
+
+            return item;
+        });
     }
 
     public void onPickupCurrency(Player player, ChangeInventoryEvent.Pickup event) {
