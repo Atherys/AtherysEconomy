@@ -116,8 +116,6 @@ public class BankViewService {
 
         int i = 12;
         for (BankIncrement increment : config.BANK_INCREMENTS) {
-            AtherysEconomy.getInstance().getLogger().info(increment.ITEM.getName());
-            AtherysEconomy.getInstance().getLogger().info("" + i);
             ItemStack incrementItem = ItemStack.builder()
                     .itemType(increment.ITEM)
                     .quantity(1)

@@ -40,7 +40,6 @@ public class CarriedCurrencyFacade {
 
         for (Map.Entry<Currency, BigDecimal> currency : account.getBalances().entrySet())  {
             getCarriedCurrency(currency.getKey()).ifPresent(carriedCurrency -> {
-                AtherysEconomy.getInstance().getLogger().info("Currency found.");
 
                 BigDecimal voided = currency.getValue().multiply(BigDecimal.valueOf(carriedCurrency.VOID_RATE));
                 BigDecimal dropped = currency.getValue().multiply(BigDecimal.valueOf(carriedCurrency.DROP_RATE));

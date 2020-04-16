@@ -30,7 +30,6 @@ public class PlayerListener {
     @Listener
     public void onPlayerDeath(DestructEntityEvent event, @Getter("getTargetEntity") Player player) {
         currencyFacade.onPlayerDeath(player);
-        AtherysEconomy.getInstance().getLogger().info(player.getName() + " has died gracefully.");
     }
 
     @Listener
