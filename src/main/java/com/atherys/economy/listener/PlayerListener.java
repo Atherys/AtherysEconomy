@@ -28,7 +28,7 @@ public class PlayerListener {
     EconomyConfig config;
 
     @Listener
-    public void onPlayerDeath(DestructEntityEvent event, @Getter("getTargetEntity") Player player) {
+    public void onPlayerDeath(DestructEntityEvent.Death event, @Getter("getTargetEntity") Player player) {
         currencyFacade.onPlayerDeath(player);
     }
 
