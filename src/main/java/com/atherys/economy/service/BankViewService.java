@@ -43,13 +43,13 @@ public class BankViewService {
     PlayerView withdrawView;
 
     private ItemStack depositItem = ItemStack.builder()
-            .itemType(ItemTypes.GREEN_GLAZED_TERRACOTTA)
+            .itemType(ItemTypes.EMERALD_BLOCK)
             .quantity(1)
             .add(Keys.DISPLAY_NAME, Text.of("Deposit"))
             .build();
 
     private ItemStack withdrawItem = ItemStack.builder()
-            .itemType(ItemTypes.RED_GLAZED_TERRACOTTA)
+            .itemType(ItemTypes.REDSTONE_BLOCK)
             .quantity(1)
             .add(Keys.DISPLAY_NAME, Text.of("Withdraw"))
             .build();
