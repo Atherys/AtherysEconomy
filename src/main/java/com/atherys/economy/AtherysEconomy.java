@@ -98,6 +98,10 @@ public class AtherysEconomy {
 
     @Listener
     public void onStart(GameStartedServerEvent event) {
+        if (!init) {
+            return;
+        }
+
         for (CarriedCurrency currency : components.config.CURRENCIES) {
             if (!Sponge.getRegistry().getType(Currency.class, currency.CURRENCY.getId()).isPresent()) {
                 logger.warn("Currency {} is not a loaded currency.", currency.CURRENCY);
