@@ -21,4 +21,7 @@ public class CarriedCurrency {
 
     @Setting(value = "item", comment = "What item the currency looks like when it gets dropped")
     public ItemType ITEM = ItemTypes.GOLD_INGOT;
+
+    @Setting(value = "pvp-only", comment = "Should the currency be dropped only in PvP?")
+    public boolean PVP_ONLY_DROP = false;
 }
