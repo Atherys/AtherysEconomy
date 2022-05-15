@@ -29,7 +29,7 @@ public class PlayerListener {
 
     @Listener
     public void onPlayerDeath(DestructEntityEvent.Death event, @Getter("getTargetEntity") Player player) {
-        currencyFacade.onPlayerDeath(player, event.getCause().root());
+        currencyFacade.onPlayerDeath(player, event.getCause().root() instanceof Player);
     }
 
     @Listener

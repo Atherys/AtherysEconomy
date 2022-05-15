@@ -35,7 +35,7 @@ public class CarriedCurrencyFacade {
     @Inject
     EconomyConfig config;
 
-    public void onPlayerDeath(Player player, Object root) {
+    public void onPlayerDeath(Player player, boolean killedByPlayer) {
         Optional<UniqueAccount> accountOptional = Economy.getAccount(player.getUniqueId());
 
         if(!accountOptional.isPresent()) return;
@@ -49,7 +49,7 @@ public class CarriedCurrencyFacade {
                 BigDecimal voided = currency.getValue().multiply(BigDecimal.valueOf(carriedCurrency.VOID_RATE));
                 account.withdraw(currency.getKey(), voided, cause);
 
-                if(!(root instanceof Player) && carriedCurrency.PVP_ONLY_DROP) return;
+                if (killedByPlayer && carriedCurrency.PVP_ONLY_DROP) return;
 
                 BigDecimal dropped = currency.getValue().multiply(BigDecimal.valueOf(carriedCurrency.DROP_RATE));
                 account.withdraw(currency.getKey(), dropped, cause);
