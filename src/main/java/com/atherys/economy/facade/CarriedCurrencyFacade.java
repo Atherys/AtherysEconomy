@@ -90,7 +90,7 @@ public class CarriedCurrencyFacade {
                 double amount = item.get(CurrencyKeys.AMOUNT).get();
 
                 Economy.addCurrency(player.getUniqueId(), currency, BigDecimal.valueOf(amount), Cause.of(EventContext.empty(), player));
-                player.sendMessage(Text.of(TextColors.DARK_GREEN, "You picked up ", TextColors.GOLD, amount, " ", currency.getPluralDisplayName(), "."));
+                player.sendMessage(Text.of(TextColors.DARK_GREEN, "You picked up ", TextColors.GOLD, String.format(".2f", amount), " ", currency.getPluralDisplayName(), "."));
 
                 transaction.setValid(false);
             }
